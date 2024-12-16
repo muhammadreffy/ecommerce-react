@@ -1,5 +1,5 @@
 import { Header } from "./components/Header";
-import { Button } from "./components/ui/button";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
@@ -17,16 +17,7 @@ function App() {
           </p>
         </section>
       </main>
-
-      <footer className="px-8 py-3 border-t">
-        <div className="flex justify-between">
-          <a href="#" className="text-2xl font-bold">
-            FYStore
-          </a>
-
-          <Button>Contact Me</Button>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
