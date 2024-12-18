@@ -10,8 +10,12 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Checkbox } from "../../components/ui/checkbox";
 import { Button } from "../../components/ui/button";
+import { useState } from "react";
 
 const LoginPage = () => {
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-8">
       <Card className="w-full max-w-lg">
@@ -21,13 +25,21 @@ const LoginPage = () => {
 
         <CardContent className="flex flex-col gap-2">
           <div className="space-y-2">
-            <Label id="email">Email</Label>
-            <Input htmlFor="email" type="email" />
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              onChange={(e) => setInputEmail(e.target.value)}
+            />
           </div>
 
           <div className="space-y-2">
-            <Label id="password">Password</Label>
-            <Input htmlFor="password" type="password" />
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              onChange={(e) => setInputPassword(e.target.value)}
+            />
           </div>
 
           <div className="flex items-center mt-2 gap-x-2">
