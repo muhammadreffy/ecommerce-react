@@ -16,6 +16,8 @@ const LoginPage = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
+  const [isChecked, setIsChecked] = useState(false);
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-8">
       <Card className="w-full max-w-lg">
@@ -37,13 +39,16 @@ const LoginPage = () => {
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
-              type="password"
+              type={isChecked ? "text" : "password"}
               onChange={(e) => setInputPassword(e.target.value)}
             />
           </div>
 
           <div className="flex items-center mt-2 gap-x-2">
-            <Checkbox id="show-password" />
+            <Checkbox
+              id="show-password"
+              onCheckedChange={(checked) => setIsChecked(checked)}
+            />
 
             <Label htmlFor="show-password">Show password</Label>
           </div>
