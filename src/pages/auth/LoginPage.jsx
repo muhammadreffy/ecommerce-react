@@ -41,9 +41,9 @@ const LoginPage = () => {
           <div className="flex flex-col w-full">
             <Button>Login</Button>
 
-            <div className="flex items-center justify-center mt-2 text-gray-700 gap-x-2">
+            <div className="flex items-center justify-center mt-2 text-gray-700 gap-x-1.5">
               Don't have an account?
-              <Button variant="link" className="p-0">
+              <Button variant="link" className="p-0 text-gray-700">
                 Register
               </Button>
             </div>
