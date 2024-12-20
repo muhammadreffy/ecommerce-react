@@ -1,28 +1,17 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { ProductCard } from "../components/ProductCard";
-
-const productRaws = [
-  {
-    imageUrl:
-      "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/3/5/3a8003ae-4e9a-465e-aec6-d9487cffb056.jpg",
-    name: "The Psychology of Money",
-    price: 50000,
-    stock: 3,
-  },
-  {
-    imageUrl:
-      "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/8/16/791092f0-ad7e-4415-a378-383f487df944.png",
-    name: "The Psychology of Emotion",
-    price: 76000,
-    stock: 0,
-  },
-];
+import { Button } from "@/components/ui/button";
+import { axiosInstance } from "@/lib/axios";
+import { useState } from "react";
 
 const HomePage = () => {
-  const products = productRaws.map((product) => {
+  const [products, setProducts] = useState([]);
+
+  const productsList = products.map((product) => {
     return (
       <ProductCard
+        key={product.id}
         imageUrl={product.imageUrl}
         name={product.name}
         price={product.price}
@@ -30,6 +19,16 @@ const HomePage = () => {
       />
     );
   });
+
+  const getProducts = async () => {
+    try {
+      const response = await axiosInstance.get("/products");
+
+      setProducts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -46,8 +45,12 @@ const HomePage = () => {
           </p>
         </section>
 
+        <Button onClick={getProducts} className="mb-4">
+          Shop Now
+        </Button>
+
         <section className="grid max-w-screen-lg grid-cols-1 gap-4 mx-auto mb-32 sm:grid-cols-2 md:grid-cols-4">
-          {products}
+          {productsList}
         </section>
       </main>
       <Footer />

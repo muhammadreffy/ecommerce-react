@@ -1,0 +1,20 @@
+{
+  "products": [
+  {
+    "id": 1,
+    "imageUrl":
+      "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/3/5/3a8003ae-4e9a-465e-aec6-d9487cffb056.jpg",
+    "name": "The Psychology of Money",
+    "price": 50000,
+    "stock": 3
+  },
+  {
+    "id": 2,
+    "imageUrl":
+      "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/8/16/791092f0-ad7e-4415-a378-383f487df944.png",
+    "name": "The Psychology of Emotion",
+    "price": 76000,
+    "stock": 0
+  }
+]
+}
