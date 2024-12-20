@@ -1,12 +1,12 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { ProductCard } from "../components/ProductCard";
-import { Button } from "@/components/ui/button";
 import { axiosInstance } from "@/lib/axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [isProductsLoading, setIsProductsLoading] = useState(false);
 
   const productsList = products.map((product) => {
     return (
@@ -21,14 +21,22 @@ const HomePage = () => {
   });
 
   const getProducts = async () => {
+    setIsProductsLoading(true);
     try {
       const response = await axiosInstance.get("/products");
 
       setProducts(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProductsLoading(false);
     }
   };
+
+  // Fetch products when the component is mounted
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   return (
     <>
@@ -45,12 +53,14 @@ const HomePage = () => {
           </p>
         </section>
 
-        <Button onClick={getProducts} className="mb-4">
-          Shop Now
-        </Button>
-
-        <section className="grid max-w-screen-lg grid-cols-1 gap-4 mx-auto mb-32 sm:grid-cols-2 md:grid-cols-4">
-          {productsList}
+        <section className="max-w-screen-lg mx-auto mb-32">
+          {isProductsLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {productsList}
+            </section>
+          )}
         </section>
       </main>
       <Footer />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 
@@ -22,6 +22,23 @@ export const ProductCard = (props) => {
       setQuantity(quantity - 1);
     }
   };
+
+  // MOUNT
+  // useEffect(() => {
+  //   alert("Component mounted");
+  // }, []);
+
+  // UPDATE DIBARENGI DENGAN MOUNT
+  // useEffect(() => {
+  //   alert("Component updated");
+  // }, [quantity]);
+
+  // UNMOUNT
+  // useEffect(() => {
+  //   return () => {
+  //     alert("Component unmounted");
+  //   };
+  // }, []);
 
   return (
     <div className="flex flex-col justify-between p-4 border rounded-md gap-y-4 md:max-w-96">
