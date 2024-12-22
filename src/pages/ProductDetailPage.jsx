@@ -1,21 +1,36 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { axiosInstance } from "@/lib/axios";
+import { useEffect, useState } from "react";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { IoHeartOutline } from "react-icons/io5";
-
-const product = {
-  id: 1,
-  imageUrl:
-    "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/3/5/3a8003ae-4e9a-465e-aec6-d9487cffb056.jpg",
-  name: "The Psychology of Money",
-  price: 50000,
-  stock: 3,
-};
+import { useParams } from "react-router-dom";
 
 const ProductDetailPage = () => {
+  const params = useParams();
+
   const [quantity, setQuantity] = useState(0);
+  const [product, setProduct] = useState({
+    id: 0,
+    imageUrl: "",
+    name: "",
+    price: 0,
+    stock: 0,
+  });
+
+  const getProduct = async () => {
+    try {
+      const response = await axiosInstance.get(`/products/${params.productId}`);
+      setProduct(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   return (
     <>

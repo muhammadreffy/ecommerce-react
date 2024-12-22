@@ -15,7 +15,7 @@ function App() {
 
         <Route path="/login" Component={LoginPage} />
 
-        <Route path="/product/detail" Component={ProductDetailPage} />
+        <Route path="/products/:productId" Component={ProductDetailPage} />
 
         <Route path="*" Component={NotFoundPage} />
       </Routes>

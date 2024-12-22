@@ -4,7 +4,7 @@ import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 export const ProductCard = (props) => {
-  const { imageUrl, name, price, stock } = props;
+  const { id, imageUrl, name, price, stock } = props;
 
   const addToCart = () => {
     alert("Added to cart");
@@ -45,7 +45,7 @@ export const ProductCard = (props) => {
     <div className="flex flex-col justify-between p-4 border rounded-md gap-y-4 md:max-w-96">
       <div>
         <Link
-          to="/product/detail"
+          to={`/products/${id}`}
           className="w-full overflow-hidden aspect-square"
         >
           <img
@@ -56,7 +56,7 @@ export const ProductCard = (props) => {
           />
         </Link>
 
-        <Link to="/product/detail" className="mt-2">
+        <Link to={`/products/${id}`} className="mt-2">
           <h2 className="text-lg">{name}</h2>
           <strong className="text-xl">Rp{price.toLocaleString("id-ID")}</strong>
           <p className="text-sm text-muted-foreground">In stock: {stock}</p>

@@ -12,6 +12,7 @@ const HomePage = () => {
     return (
       <ProductCard
         key={product.id}
+        id={product.id}
         imageUrl={product.imageUrl}
         name={product.name.substring(0, 25) + "..."}
         price={product.price}
