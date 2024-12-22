@@ -56,8 +56,8 @@ export const ProductCard = (props) => {
           />
         </Link>
 
-        <Link to={`/products/${id}`} className="mt-2">
-          <h2 className="text-lg">{name}</h2>
+        <Link to={`/products/${id}`}>
+          <h2 className="mt-2 text-lg">{name}</h2>
           <strong className="text-xl">Rp{price.toLocaleString("id-ID")}</strong>
           <p className="text-sm text-muted-foreground">In stock: {stock}</p>
         </Link>
