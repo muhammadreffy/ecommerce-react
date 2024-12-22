@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 export const ProductCard = (props) => {
   const { imageUrl, name, price, stock } = props;
@@ -43,15 +44,23 @@ export const ProductCard = (props) => {
   return (
     <div className="flex flex-col justify-between p-4 border rounded-md gap-y-4 md:max-w-96">
       <div>
-        <div className="w-full overflow-hidden aspect-square">
-          <img src={imageUrl} alt={name} className="object-cover" />
-        </div>
+        <Link
+          to="/product/detail"
+          className="w-full overflow-hidden aspect-square"
+        >
+          <img
+            src={imageUrl}
+            alt={name}
+            loading="lazy"
+            className="object-cover"
+          />
+        </Link>
 
-        <div className="mt-2">
+        <Link to="/product/detail" className="mt-2">
           <h2 className="text-lg">{name}</h2>
           <strong className="text-xl">Rp{price.toLocaleString("id-ID")}</strong>
           <p className="text-sm text-muted-foreground">In stock: {stock}</p>
-        </div>
+        </Link>
       </div>
 
       <div className="flex flex-col gap-y-2">
