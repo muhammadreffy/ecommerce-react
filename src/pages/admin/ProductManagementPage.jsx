@@ -1,6 +1,11 @@
 import { AdminLayout } from "@/components/layouts/AdminLayout";
 import { Button } from "@/components/ui/button";
 import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from "@/components/ui/pagination";
+import {
   Table,
   TableBody,
   TableCell,
@@ -9,22 +14,38 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { axiosInstance } from "@/lib/axios";
-import { Ellipsis } from "lucide-react";
+import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react";
 import { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
+import { useSearchParams } from "react-router-dom";
 
 const ProductManagementPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [products, setProducts] = useState([]);
+
+  const handleNextPage = () => {
+    searchParams.set("_page", Number(searchParams.get("_page")) + 1);
+
+    setSearchParams(searchParams);
+  };
+
+  const handlePreviousPage = () => {
+    searchParams.set("_page", Number(searchParams.get("_page")) - 1);
+
+    setSearchParams(searchParams);
+  };
 
   const getProducts = async () => {
     try {
       const response = await axiosInstance.get("/products", {
         params: {
-          _limit: 5,
+          _per_page: 5,
+          _page: Number(searchParams.get("_page")),
         },
       });
 
-      setProducts(response.data);
+      setProducts(response.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +53,7 @@ const ProductManagementPage = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [searchParams.get("_page")]);
 
   return (
     <>
@@ -72,6 +93,28 @@ const ProductManagementPage = () => {
             ))}
           </TableBody>
         </Table>
+
+        <Pagination className="mt-8">
+          <PaginationContent>
+            <PaginationItem>
+              <Button variant="ghost" onClick={handlePreviousPage}>
+                <ChevronLeft className="w-6 h-6" />
+                Previous
+              </Button>
+            </PaginationItem>
+
+            <PaginationItem className="mx-8 font-semibold">
+              {searchParams.get("_page")}
+            </PaginationItem>
+
+            <PaginationItem>
+              <Button variant="ghost" onClick={handleNextPage}>
+                Next
+                <ChevronRight className="w-6 h-6" />
+              </Button>
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </AdminLayout>
     </>
   );
