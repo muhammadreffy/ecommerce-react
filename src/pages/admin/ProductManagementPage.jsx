@@ -19,7 +19,7 @@ import { axiosInstance } from "@/lib/axios";
 import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react";
 import { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
-import { useSearchParams } from "react-router-dom";
+import { Link, Outlet, useSearchParams } from "react-router-dom";
 
 const ProductManagementPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -102,10 +102,12 @@ const ProductManagementPage = () => {
         title="Product Management Page"
         description="Manage our store's products"
         rightSection={
-          <Button>
-            <IoAdd className="w-6 h-6" />
-            Add Product
-          </Button>
+          <Link to="/admin/products/create">
+            <Button>
+              <IoAdd className="w-6 h-6" />
+              Add Product
+            </Button>
+          </Link>
         }
       >
         <div className="mb-4">

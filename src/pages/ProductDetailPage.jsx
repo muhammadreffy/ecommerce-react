@@ -39,7 +39,6 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      <Header />
       <main className="max-w-screen-lg min-h-screen px-4 mx-auto my-8">
         <div className="grid grid-cols-2 gap-8">
           {productIsLoading ? (
@@ -97,7 +96,6 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 };

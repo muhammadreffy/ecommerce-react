@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductManagementPage from "./pages/admin/ProductManagementPage";
+import CreateProductPage from "./pages/admin/CreateProductPage";
 import LoginPage from "./pages/auth/LoginPage";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -24,7 +25,10 @@ function App() {
 
         <Route path="/products/:productId" Component={ProductDetailPage} />
 
-        <Route path="/admin/products" Component={ProductManagementPage} />
+        <Route path="/admin">
+          <Route path="products" Component={ProductManagementPage} />
+          <Route path="products/create" Component={CreateProductPage} />
+        </Route>
 
         <Route path="*" Component={NotFoundPage} />
       </Routes>
