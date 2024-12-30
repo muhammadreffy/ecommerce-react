@@ -24,14 +24,16 @@ const ProductManagementPage = () => {
 
   const [products, setProducts] = useState([]);
 
+  const [hasNextPage, setHasNextPage] = useState(true);
+
   const handleNextPage = () => {
-    searchParams.set("_page", Number(searchParams.get("_page")) + 1);
+    searchParams.set("page", Number(searchParams.get("page")) + 1);
 
     setSearchParams(searchParams);
   };
 
   const handlePreviousPage = () => {
-    searchParams.set("_page", Number(searchParams.get("_page")) - 1);
+    searchParams.set("page", Number(searchParams.get("page")) - 1);
 
     setSearchParams(searchParams);
   };
@@ -41,9 +43,11 @@ const ProductManagementPage = () => {
       const response = await axiosInstance.get("/products", {
         params: {
           _per_page: 5,
-          _page: Number(searchParams.get("_page")),
+          _page: Number(searchParams.get("page")),
         },
       });
+
+      setHasNextPage(Boolean(response.data.next));
 
       setProducts(response.data.data);
     } catch (error) {
@@ -52,8 +56,28 @@ const ProductManagementPage = () => {
   };
 
   useEffect(() => {
-    getProducts();
-  }, [searchParams.get("_page")]);
+    if (searchParams.get("page")) {
+      getProducts();
+    }
+  }, [searchParams.get("page")]);
+
+  useEffect(() => {
+    if (!searchParams.get("page")) {
+      searchParams.set("page", 1);
+
+      setSearchParams(searchParams);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchParams.get("page") < 1) {
+      searchParams.set("page", 1);
+
+      getProducts();
+
+      setSearchParams(searchParams);
+    }
+  }, []);
 
   return (
     <>
@@ -97,18 +121,26 @@ const ProductManagementPage = () => {
         <Pagination className="mt-8">
           <PaginationContent>
             <PaginationItem>
-              <Button variant="ghost" onClick={handlePreviousPage}>
+              <Button
+                disabled={searchParams.get("page") == 1}
+                variant="ghost"
+                onClick={handlePreviousPage}
+              >
                 <ChevronLeft className="w-6 h-6" />
                 Previous
               </Button>
             </PaginationItem>
 
             <PaginationItem className="mx-8 font-semibold">
-              {searchParams.get("_page")}
+              {searchParams.get("page")}
             </PaginationItem>
 
             <PaginationItem>
-              <Button variant="ghost" onClick={handleNextPage}>
+              <Button
+                disabled={!hasNextPage}
+                variant="ghost"
+                onClick={handleNextPage}
+              >
                 Next
                 <ChevronRight className="w-6 h-6" />
               </Button>
