@@ -1,5 +1,7 @@
 import { AdminLayout } from "@/components/layouts/AdminLayout";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Pagination,
   PaginationContent,
@@ -26,6 +28,8 @@ const ProductManagementPage = () => {
 
   const [hasNextPage, setHasNextPage] = useState(true);
 
+  const [productName, setProductName] = useState("");
+
   const handleNextPage = () => {
     searchParams.set("page", Number(searchParams.get("page")) + 1);
 
@@ -44,6 +48,7 @@ const ProductManagementPage = () => {
         params: {
           _per_page: 5,
           _page: Number(searchParams.get("page")),
+          name: searchParams.get("search"),
         },
       });
 
@@ -55,11 +60,23 @@ const ProductManagementPage = () => {
     }
   };
 
+  const searchProduct = () => {
+    if (productName) {
+      searchParams.set("search", productName);
+
+      setSearchParams(searchParams);
+    } else {
+      searchParams.delete("search");
+
+      setSearchParams(searchParams);
+    }
+  };
+
   useEffect(() => {
     if (searchParams.get("page")) {
       getProducts();
     }
-  }, [searchParams.get("page")]);
+  }, [searchParams.get("page"), searchParams.get("search")]);
 
   useEffect(() => {
     if (!searchParams.get("page")) {
@@ -91,6 +108,19 @@ const ProductManagementPage = () => {
           </Button>
         }
       >
+        <div className="mb-4">
+          <Label>Search product name</Label>
+          <div className="flex mt-1 gap-x-4">
+            <Input
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
+              placeholder="Search products..."
+              className="max-w-[400px]"
+            />
+            <Button onClick={searchProduct}>Search</Button>
+          </div>
+        </div>
+
         <Table className="p-4 border">
           <TableHeader>
             <TableRow>
@@ -103,7 +133,7 @@ const ProductManagementPage = () => {
 
           <TableBody>
             {products.map((product) => (
-              <TableRow>
+              <TableRow key={product.id}>
                 <TableCell>{product.id}</TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>Rp{product.price.toLocaleString("id-ID")}</TableCell>
