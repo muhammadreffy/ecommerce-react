@@ -33,15 +33,12 @@ const EditProductPage = () => {
 
   const handleEditProduct = async (values) => {
     try {
-      const response = await axiosInstance.patch(
-        `/products/${params.productId}`,
-        {
-          name: values.name,
-          price: values.price,
-          stock: values.stock,
-          imageUrl: values.imageUrl,
-        }
-      );
+      await axiosInstance.patch(`/products/${params.productId}`, {
+        name: values.name,
+        price: values.price,
+        stock: values.stock,
+        imageUrl: values.imageUrl,
+      });
 
       alert("Product Edited");
 
