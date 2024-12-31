@@ -8,6 +8,7 @@ import ProductManagementPage from "./pages/admin/ProductManagementPage";
 import CreateProductPage from "./pages/admin/CreateProductPage";
 import LoginPage from "./pages/auth/LoginPage";
 import { Routes, Route, useLocation } from "react-router-dom";
+import EditProductPage from "./pages/admin/EditProductPage";
 
 function App() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/admin">
           <Route path="products" Component={ProductManagementPage} />
           <Route path="products/create" Component={CreateProductPage} />
+          <Route path="products/edit/:productId" Component={EditProductPage} />
         </Route>
 
         <Route path="*" Component={NotFoundPage} />

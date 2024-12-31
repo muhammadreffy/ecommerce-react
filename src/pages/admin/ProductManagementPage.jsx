@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { axiosInstance } from "@/lib/axios";
-import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react";
+import { ChevronLeft, ChevronRight, Edit } from "lucide-react";
 import { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { Link, Outlet, useSearchParams } from "react-router-dom";
@@ -141,9 +141,11 @@ const ProductManagementPage = () => {
                 <TableCell>Rp{product.price.toLocaleString("id-ID")}</TableCell>
                 <TableCell>{product.stock}</TableCell>
                 <TableCell>
-                  <Button variant="ghost" size="icon">
-                    <Ellipsis className="w-6 h-6" />
-                  </Button>
+                  <Link to={`/admin/products/edit/${product.id}`}>
+                    <Button variant="ghost" size="icon">
+                      <Edit className="w-6 h-6" />
+                    </Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
