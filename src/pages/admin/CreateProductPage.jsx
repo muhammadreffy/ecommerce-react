@@ -17,23 +17,25 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { axiosInstance } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 const createProductFormSchema = z.object({
   name: z.string().min(3, "Product name has to be 3 characters or more"),
-  description: z.string().min(5, "Description has to be 5 characters or more"),
   price: z.coerce.number().min(0, "Price has to be greater than 0"),
   stock: z.coerce.number().min(0, "Stock has to be greater than 0"),
   imageUrl: z.string().url("Image URL must be a valid URL"),
 });
 
 const CreateProductPage = () => {
+  const navigate = useNavigate();
+
   const form = useForm({
     defaultValues: {
       name: "",
-      description: "",
       price: 0,
       stock: 0,
       imageUrl: "",
@@ -41,8 +43,21 @@ const CreateProductPage = () => {
     resolver: zodResolver(createProductFormSchema),
   });
 
-  const handleCreateProduct = (values) => {
-    console.log(values);
+  const handleCreateProduct = async (values) => {
+    try {
+      await axiosInstance.post("/products", {
+        name: values.name,
+        price: values.price,
+        stock: values.stock,
+        imageUrl: values.imageUrl,
+      });
+
+      alert("product created");
+
+      navigate("/admin/products");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
