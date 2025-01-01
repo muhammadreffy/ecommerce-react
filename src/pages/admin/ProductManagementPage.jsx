@@ -1,5 +1,6 @@
 import { AdminLayout } from "@/components/layouts/AdminLayout";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -29,6 +30,8 @@ const ProductManagementPage = () => {
   const [hasNextPage, setHasNextPage] = useState(true);
 
   const [productName, setProductName] = useState("");
+
+  const [selectedProductIds, setSelectedProductIds] = useState([]);
 
   const handleNextPage = () => {
     searchParams.set("page", Number(searchParams.get("page")) + 1);
@@ -90,6 +93,25 @@ const ProductManagementPage = () => {
     }
   };
 
+  const handleOnCheckedProduct = (productId, checked) => {
+    if (checked) {
+      const prevSelectedProductIds = [...selectedProductIds];
+
+      prevSelectedProductIds.push(productId);
+
+      setSelectedProductIds(prevSelectedProductIds);
+    } else {
+      const productIdIndex = selectedProductIds.findIndex((id) => {
+        return id == productId;
+      });
+
+      const prevSelectedProductIds = [...selectedProductIds];
+      prevSelectedProductIds.splice(productIdIndex, 1);
+
+      setSelectedProductIds(prevSelectedProductIds);
+    }
+  };
+
   useEffect(() => {
     if (searchParams.get("page")) {
       getProducts();
@@ -144,6 +166,7 @@ const ProductManagementPage = () => {
         <Table className="p-4 border">
           <TableHeader>
             <TableRow>
+              <TableHead></TableHead>
               <TableHead>ID</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Price</TableHead>
@@ -154,6 +177,14 @@ const ProductManagementPage = () => {
           <TableBody>
             {products.map((product) => (
               <TableRow key={product.id}>
+                <TableCell>
+                  <Checkbox
+                    onCheckedChange={(checked) =>
+                      handleOnCheckedProduct(product.id, checked)
+                    }
+                    checked={selectedProductIds.includes(product.id)}
+                  />
+                </TableCell>
                 <TableCell>{product.id}</TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>Rp{product.price.toLocaleString("id-ID")}</TableCell>
