@@ -20,7 +20,7 @@ import { axiosInstance } from "@/lib/axios";
 import { ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
-import { Link, Outlet, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const ProductManagementPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -75,19 +75,33 @@ const ProductManagementPage = () => {
     }
   };
 
-  const handleDeleteProduct = async (productId) => {
-    const shouldDelete = confirm("Are you sure want to delete product?");
+  const handleDeleteProduct = async () => {
+    const shouldDelete = confirm(
+      `Are you sure want to delete ${selectedProductIds.length} product${
+        selectedProductIds.length > 1 ? "s" : ""
+      }?`
+    );
 
-    if (!shouldDelete) {
-      return;
-    }
+    if (!shouldDelete) return;
+
+    const deletePromises = selectedProductIds.map((productId) => {
+      return axiosInstance.delete(`/products/${productId}`);
+    });
 
     try {
-      await axiosInstance.delete(`/products/${productId}`);
+      await Promise.all(deletePromises);
 
-      alert("Product deleted");
+      setSelectedProductIds([]);
 
-      getProducts();
+      alert(
+        `Successfully deleted ${selectedProductIds.length} product${
+          selectedProductIds.length > 1 ? "s" : ""
+        }`
+      );
+
+      searchParams.set("page", Number(1));
+
+      setSearchParams(searchParams);
     } catch (error) {
       console.error(error);
     }
@@ -142,12 +156,24 @@ const ProductManagementPage = () => {
         title="Product Management Page"
         description="Manage our store's products"
         rightSection={
-          <Link to="/admin/products/create">
-            <Button>
-              <IoAdd className="w-6 h-6" />
-              Add Product
-            </Button>
-          </Link>
+          <div className="flex items-center gap-x-4">
+            {selectedProductIds.length > 0 && (
+              <Button
+                variant="destructive"
+                onClick={() => handleDeleteProduct()}
+              >
+                <Trash className="w-6 h-6" />
+                Delete {selectedProductIds.length} Product
+                {selectedProductIds.length > 1 ? "s" : ""}
+              </Button>
+            )}
+            <Link to="/admin/products/create">
+              <Button>
+                <IoAdd className="w-6 h-6" />
+                Add Product
+              </Button>
+            </Link>
+          </div>
         }
       >
         <div className="mb-4">
@@ -190,22 +216,11 @@ const ProductManagementPage = () => {
                 <TableCell>Rp{product.price.toLocaleString("id-ID")}</TableCell>
                 <TableCell>{product.stock}</TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-x-2">
-                    <Link to={`/admin/products/edit/${product.id}`}>
-                      <Button variant="ghost" size="icon" className="w-8 h-8">
-                        <Edit />
-                      </Button>
-                    </Link>
-
-                    <Button
-                      onClick={() => handleDeleteProduct(product.id)}
-                      variant="destructive"
-                      size="icon"
-                      className="w-8 h-8"
-                    >
-                      <Trash />
+                  <Link to={`/admin/products/edit/${product.id}`}>
+                    <Button variant="ghost" size="icon" className="w-8 h-8">
+                      <Edit />
                     </Button>
-                  </div>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
