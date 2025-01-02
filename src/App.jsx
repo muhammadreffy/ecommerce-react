@@ -9,6 +9,7 @@ import CreateProductPage from "./pages/admin/CreateProductPage";
 import LoginPage from "./pages/auth/LoginPage";
 import { Routes, Route, useLocation } from "react-router-dom";
 import EditProductPage from "./pages/admin/EditProductPage";
+import CounterPage from "./pages/CounterPage";
 
 function App() {
   const location = useLocation();
@@ -23,6 +24,8 @@ function App() {
         <Route path="/cart" Component={CartPage} />
 
         <Route path="/login" Component={LoginPage} />
+
+        <Route path="/counter" Component={CounterPage} />
 
         <Route path="/products/:productId" Component={ProductDetailPage} />
 
