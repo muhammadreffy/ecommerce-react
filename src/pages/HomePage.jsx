@@ -1,12 +1,13 @@
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { ProductCard } from "../components/ProductCard";
 import { axiosInstance } from "@/lib/axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [isProductsLoading, setIsProductsLoading] = useState(false);
+
+  const userSelector = useSelector((state) => state.user);
 
   const productsList = products.map((product) => {
     return (
