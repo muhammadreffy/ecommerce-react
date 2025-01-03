@@ -91,5 +91,31 @@
       "stock": 28,
       "imageUrl": "https://images.tokopedia.net/img/cache/900/hDjmkQ/2024/10/22/6b6edee8-32f2-435e-a59f-d3b617eece23.jpg"
     }
+  ],
+  "users": [
+    {
+      "id": "756c",
+      "username": "muhammadreffy_",
+      "email": "syahnataa@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "id": "ac49",
+      "username": "aley",
+      "email": "aley@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "id": "84f0",
+      "username": "kurniadi",
+      "email": "kurniadi@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "id": "3f77",
+      "username": "micacayank",
+      "email": "micacayank@gmail.com",
+      "password": "12345678"
+    }
   ]
 }

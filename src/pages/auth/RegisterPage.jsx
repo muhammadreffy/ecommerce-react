@@ -9,7 +9,6 @@ import {
 
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -24,6 +23,7 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
+import { axiosInstance } from "@/lib/axios";
 
 const registerFormSchema = z
   .object({
@@ -59,8 +59,42 @@ const RegisterPage = () => {
     mode: "onChange",
   });
 
-  const handleRegister = (values) => {
-    console.log(values);
+  const handleRegister = async (values) => {
+    try {
+      const [emailResponse, usernameResponse] = await Promise.all([
+        axiosInstance.get("/users", {
+          params: { email: values.email },
+        }),
+
+        axiosInstance.get("/users", {
+          params: { username: values.username },
+        }),
+      ]);
+
+      if (emailResponse.data.length) {
+        alert("Email already taken");
+
+        return;
+      }
+
+      if (usernameResponse.data.length) {
+        alert("Username already taken");
+
+        return;
+      }
+
+      await axiosInstance.post("/users", {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      });
+
+      alert("User Registered");
+
+      form.reset();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
