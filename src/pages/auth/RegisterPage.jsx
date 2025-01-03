@@ -8,8 +8,6 @@ import {
 } from "../../components/ui/card";
 
 import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
-import { Checkbox } from "../../components/ui/checkbox";
 import { Button } from "../../components/ui/button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -20,31 +18,48 @@ import {
   FormLabel,
   FormField,
   FormControl,
+  FormDescription,
 } from "../../components/ui/form";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 
-const loginFormSchema = z.object({
-  email: z.string().min(8, "Email has to be 8 characters or more"),
-  password: z.string().min(8, "Your password needs to be 8 characters or more"),
-});
+const registerFormSchema = z
+  .object({
+    email: z.string().min(8, "Email has to be 8 characters or more"),
+    username: z.string().min(3, "Username has to be 3 characters or more"),
+    password: z
+      .string()
+      .min(8, "Your password needs to be 8 characters or more"),
+    confirmPassword: z
+      .string()
+      .min(8, "Your password needs to be 8 characters or more"),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+      });
+    }
+  });
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const form = useForm({
     defaultValues: {
       email: "",
+      username: "",
       password: "",
+      confirmPassword: "",
     },
 
-    resolver: zodResolver(loginFormSchema),
+    resolver: zodResolver(registerFormSchema),
     mode: "onChange",
   });
 
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleLogin = (values) => {
+  const handleRegister = (values) => {
     console.log(values);
   };
 
@@ -53,14 +68,14 @@ const LoginPage = () => {
       <main className="flex flex-col items-center justify-center min-h-screen py-8">
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleLogin)}
+            onSubmit={form.handleSubmit(handleRegister)}
             className="w-full max-w-lg"
           >
             <Card>
               <CardHeader>
-                <CardTitle>Welcome Back!</CardTitle>
+                <CardTitle>Welcome!</CardTitle>
                 <CardDescription>
-                  Please enter your details to login.
+                  Please enter your details to create an account.
                 </CardDescription>
               </CardHeader>
 
@@ -81,42 +96,64 @@ const LoginPage = () => {
 
                 <FormField
                   control={form.control}
-                  name="password"
+                  name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Username</FormLabel>
                       <FormControl>
-                        <Input
-                          {...field}
-                          type={isChecked ? "text" : "password"}
-                        />
+                        <Input {...field} type="text" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                <div className="flex items-center mt-2 gap-x-2">
-                  <Checkbox
-                    id="show-password"
-                    onCheckedChange={(checked) => setIsChecked(checked)}
-                  />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="password" />
+                      </FormControl>
+                      <FormDescription>
+                        Your password needs to be 8 characters or more
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <Label htmlFor="show-password">Show password</Label>
-                </div>
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm Password</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="password" />
+                      </FormControl>
+                      <FormDescription>
+                        Password and password confirmation must be the same
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </CardContent>
 
               <CardFooter>
                 <div className="flex flex-col w-full">
                   <Button disabled={!form.formState.isValid} type="submit">
-                    Login
+                    Register
                   </Button>
 
                   <div className="flex items-center justify-center mt-2 text-gray-700 gap-x-1.5">
-                    Don't have an account?
-                    <Link to="/register">
+                    You have an account?
+                    <Link to="/login">
                       <Button variant="link" className="p-0 text-gray-700">
-                        Register
+                        Login
                       </Button>
                     </Link>
                   </div>
@@ -130,4 +167,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

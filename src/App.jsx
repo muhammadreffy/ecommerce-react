@@ -10,19 +10,25 @@ import LoginPage from "./pages/auth/LoginPage";
 import { Routes, Route, useLocation } from "react-router-dom";
 import EditProductPage from "./pages/admin/EditProductPage";
 import CounterPage from "./pages/CounterPage";
+import RegisterPage from "./pages/auth/RegisterPage";
 
 function App() {
   const location = useLocation();
 
   return (
     <>
-      {!location.pathname.startsWith("/admin") ? <Header /> : null}
+      {!location.pathname.startsWith("/admin") &&
+      !location.pathname.startsWith("/login") &&
+      !location.pathname.startsWith("/register") ? (
+        <Header />
+      ) : null}
 
       <Routes>
         <Route path="/" Component={HomePage} />
 
         <Route path="/cart" Component={CartPage} />
 
+        <Route path="/register" Component={RegisterPage} />
         <Route path="/login" Component={LoginPage} />
 
         <Route path="/counter" Component={CounterPage} />
@@ -38,7 +44,11 @@ function App() {
         <Route path="*" Component={NotFoundPage} />
       </Routes>
 
-      {!location.pathname.startsWith("/admin") ? <Footer /> : null}
+      {!location.pathname.startsWith("/admin") &&
+      !location.pathname.startsWith("/login") &&
+      !location.pathname.startsWith("/register") ? (
+        <Footer />
+      ) : null}
     </>
   );
 }
