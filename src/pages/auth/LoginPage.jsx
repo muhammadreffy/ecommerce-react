@@ -25,6 +25,7 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
+import { axiosInstance } from "@/lib/axios";
 
 const loginFormSchema = z.object({
   email: z.string().min(8, "Email has to be 8 characters or more"),
@@ -44,8 +45,21 @@ const LoginPage = () => {
 
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleLogin = (values) => {
-    console.log(values);
+  const handleLogin = async (values) => {
+    const userResponse = await axiosInstance.get("/users", {
+      params: {
+        email: values.email,
+      },
+    });
+
+    if (
+      !userResponse.data.length ||
+      userResponse.data[0].password !== values.password
+    ) {
+      return alert("Login failed. Email or password is incorrect.");
+    }
+
+    console.log(userResponse.data);
   };
 
   return (
