@@ -26,6 +26,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { axiosInstance } from "@/lib/axios";
+import { useDispatch } from "react-redux";
 
 const loginFormSchema = z.object({
   email: z.string().min(8, "Email has to be 8 characters or more"),
@@ -33,6 +34,8 @@ const loginFormSchema = z.object({
 });
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+
   const form = useForm({
     defaultValues: {
       email: "",
@@ -46,20 +49,33 @@ const LoginPage = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleLogin = async (values) => {
-    const userResponse = await axiosInstance.get("/users", {
-      params: {
-        email: values.email,
-      },
-    });
+    try {
+      const userResponse = await axiosInstance.get("/users", {
+        params: {
+          email: values.email,
+        },
+      });
 
-    if (
-      !userResponse.data.length ||
-      userResponse.data[0].password !== values.password
-    ) {
-      return alert("Login failed. Email or password is incorrect.");
+      if (
+        !userResponse.data.length ||
+        userResponse.data[0].password !== values.password
+      ) {
+        return alert("Login failed. Email or password is incorrect.");
+      }
+
+      alert("Succefully Logged In");
+
+      dispatch({
+        type: "USER_LOGIN",
+        payload: {
+          id: userResponse.data[0].id,
+          email: userResponse.data[0].email,
+          username: userResponse.data[0].username,
+        },
+      });
+    } catch (error) {
+      console.error(error);
     }
-
-    console.log(userResponse.data);
   };
 
   return (
