@@ -73,6 +73,10 @@ const LoginPage = () => {
           username: userResponse.data[0].username,
         },
       });
+
+      localStorage.setItem("CURRENT_USER", userResponse.data[0].id);
+
+      form.reset();
     } catch (error) {
       console.error(error);
     }
