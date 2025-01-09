@@ -13,6 +13,8 @@ export const userReducer = (state = DEFAULT_STATE, action) => {
     duplicateState.username = action.payload.username;
 
     return duplicateState;
+  } else if (action.type === "USER_LOGOUT") {
+    return DEFAULT_STATE;
   }
 
   return state;

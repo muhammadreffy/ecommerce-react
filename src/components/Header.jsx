@@ -3,10 +3,28 @@ import { Input } from "./ui/input";
 import { IoCart, IoHeart } from "react-icons/io5";
 import { Separator } from "./ui/separator";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 export const Header = () => {
   const userSelector = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    localStorage.removeItem("CURRENT_USER");
+
+    dispatch({
+      type: "USER_LOGOUT",
+    });
+  };
 
   return (
     <header className="px-8 py-3 border-b">
@@ -37,7 +55,20 @@ export const Header = () => {
 
           <div className="flex items-center gap-x-2">
             {userSelector.id ? (
-              <span>Hello, {userSelector.username}</span>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="outline-none">
+                  Hello, {userSelector.username}
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <>
                 <Link to="/login">
