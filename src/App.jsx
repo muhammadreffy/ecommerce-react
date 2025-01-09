@@ -36,6 +36,7 @@ function App() {
           id: userResponse.data.id,
           email: userResponse.data.email,
           username: userResponse.data.username,
+          role: userResponse.data.role,
         },
       });
     } catch (error) {

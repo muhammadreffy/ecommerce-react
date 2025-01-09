@@ -22,7 +22,7 @@ import {
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "@/lib/axios";
 import { GuestPage } from "@/components/guard/GuestPage";
 
@@ -48,6 +48,8 @@ const registerFormSchema = z
   });
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
   const form = useForm({
     defaultValues: {
       email: "",
@@ -88,11 +90,12 @@ const RegisterPage = () => {
         username: values.username,
         email: values.email,
         password: values.password,
+        role: "user",
       });
 
-      alert("User Registered");
+      alert("User Registered. Please Login");
 
-      form.reset();
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }

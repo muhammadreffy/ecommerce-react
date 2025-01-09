@@ -1,4 +1,5 @@
 import { ProductForm } from "@/components/forms/ProductForm";
+import { AdminPage } from "@/components/guard/AdminPage";
 import { AdminLayout } from "@/components/layouts/AdminLayout";
 import { axiosInstance } from "@/lib/axios";
 import { useEffect, useState } from "react";

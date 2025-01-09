@@ -2,6 +2,7 @@ const DEFAULT_STATE = {
   id: "",
   email: "",
   username: "",
+  role: "",
 };
 
 export const userReducer = (state = DEFAULT_STATE, action) => {
@@ -11,6 +12,7 @@ export const userReducer = (state = DEFAULT_STATE, action) => {
     duplicateState.id = action.payload.id;
     duplicateState.email = action.payload.email;
     duplicateState.username = action.payload.username;
+    duplicateState.role = action.payload.role;
 
     return duplicateState;
   } else if (action.type === "USER_LOGOUT") {

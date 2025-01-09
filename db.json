@@ -97,25 +97,22 @@
       "id": "756c",
       "username": "muhammadreffy_",
       "email": "syahnataa@gmail.com",
-      "password": "12345678"
+      "password": "12345678",
+      "role": "user"
     },
     {
-      "id": "ac49",
+      "id": "2aee",
       "username": "aley",
       "email": "aley@gmail.com",
-      "password": "12345678"
+      "password": "12345678",
+      "role": "user"
     },
     {
-      "id": "84f0",
-      "username": "kurniadi",
-      "email": "kurniadi@gmail.com",
-      "password": "12345678"
-    },
-    {
-      "id": "3f77",
-      "username": "micacayank",
-      "email": "micacayank@gmail.com",
-      "password": "12345678"
+      "id": "33e8",
+      "username": "superadmin",
+      "email": "superadmin@gmail.com",
+      "password": "12345678",
+      "role": "admin"
     }
   ]
 }

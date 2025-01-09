@@ -1,5 +1,6 @@
 import { IoAdd, IoCart, IoPerson, IoPricetag } from "react-icons/io5";
 import { Button } from "../ui/button";
+import { AdminPage } from "../guard/AdminPage";
 
 const SidebarItem = (props) => {
   const { children } = props;
@@ -17,7 +18,7 @@ const SidebarItem = (props) => {
 export const AdminLayout = (props) => {
   const { title, description, rightSection, children } = props;
   return (
-    <>
+    <AdminPage>
       <div className="flex">
         <aside className="h-screen border-r w-72">
           <div className="flex flex-col items-center justify-center h-16 border-b">
@@ -58,6 +59,6 @@ export const AdminLayout = (props) => {
           </main>
         </div>
       </div>
-    </>
+    </AdminPage>
   );
 };
