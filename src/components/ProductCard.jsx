@@ -2,12 +2,28 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { axiosInstance } from "@/lib/axios";
 
 export const ProductCard = (props) => {
   const { id, imageUrl, name, price, stock } = props;
 
-  const addToCart = () => {
-    alert("Added to cart");
+  const userSelector = useSelector((state) => state.user);
+
+  const addToCart = async () => {
+    if (!userSelector.id) return alert("please login");
+
+    try {
+      await axiosInstance.post("/carts", {
+        userId: userSelector.id,
+        productId: id,
+        quantity: quantity,
+      });
+
+      alert("Added to cart");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const [quantity, setQuantity] = useState(0);
@@ -88,7 +104,11 @@ export const ProductCard = (props) => {
         </div>
 
         {/* BUTTON ADD TO CART */}
-        <Button disabled={!stock} className="w-full" onClick={addToCart}>
+        <Button
+          disabled={!stock || quantity === 0}
+          className="w-full"
+          onClick={addToCart}
+        >
           {stock ? "Add to cart" : "Out of stock"}
         </Button>
       </div>

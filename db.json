@@ -114,5 +114,25 @@
       "password": "12345678",
       "role": "admin"
     }
+  ],
+  "carts": [
+    {
+      "id": "c695",
+      "userId": "756c",
+      "productId": "1",
+      "quantity": 2
+    },
+    {
+      "id": "47b0",
+      "userId": "756c",
+      "productId": "4860",
+      "quantity": 3
+    },
+    {
+      "id": "1a6c",
+      "userId": "756c",
+      "productId": "1",
+      "quantity": 2
+    }
   ]
 }
