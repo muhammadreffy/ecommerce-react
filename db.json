@@ -117,22 +117,16 @@
   ],
   "carts": [
     {
-      "id": "c695",
+      "id": "c6e7",
       "userId": "756c",
       "productId": "1",
       "quantity": 2
     },
     {
-      "id": "47b0",
+      "id": "01a8",
       "userId": "756c",
-      "productId": "4860",
-      "quantity": 3
-    },
-    {
-      "id": "1a6c",
-      "userId": "756c",
-      "productId": "1",
-      "quantity": 2
+      "productId": "4",
+      "quantity": 1
     }
   ]
 }

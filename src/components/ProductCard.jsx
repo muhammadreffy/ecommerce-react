@@ -14,11 +14,38 @@ export const ProductCard = (props) => {
     if (!userSelector.id) return alert("please login");
 
     try {
-      await axiosInstance.post("/carts", {
-        userId: userSelector.id,
-        productId: id,
-        quantity: quantity,
+      const cartResponse = await axiosInstance.get("/carts", {
+        params: {
+          userId: userSelector.id,
+          _embed: "product",
+        },
       });
+
+      console.log(cartResponse);
+
+      const existingProduct = cartResponse.data.find((cart) => {
+        return cart.productId === id;
+      });
+
+      if (!existingProduct) {
+        await axiosInstance.post("/carts", {
+          userId: userSelector.id,
+          productId: id,
+          quantity: quantity,
+        });
+      } else {
+        if (
+          existingProduct.quantity + quantity >
+          existingProduct.product.stock
+        ) {
+          alert("quantity is over the stock");
+          return;
+        }
+
+        await axiosInstance.patch(`/carts/${existingProduct.id}`, {
+          quantity: existingProduct.quantity + quantity,
+        });
+      }
 
       alert("Added to cart");
     } catch (error) {
