@@ -4,11 +4,19 @@ import { IoCheckmark, IoClose, IoTrash } from "react-icons/io5";
 import { axiosInstance } from "@/lib/axios";
 import { useSelector } from "react-redux";
 import { getCart } from "@/services/cartService";
+import { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 export const CartItem = (props) => {
   const { id, name, price, imageUrl, stock, quantity } = props;
 
   const userSelector = useSelector((state) => state.user);
+
+  const [qty, setQty] = useState(quantity);
+
+  const debounceUpdateCart = useDebouncedCallback(() => {
+    updateCartQuantity();
+  }, 2000);
 
   const removeCartItem = async () => {
     try {
@@ -21,6 +29,22 @@ export const CartItem = (props) => {
       console.error(error);
     }
   };
+
+  const updateCartQuantity = async () => {
+    try {
+      await axiosInstance.patch(`/carts/${id}`, {
+        quantity: qty,
+      });
+
+      getCart(userSelector.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    debounceUpdateCart();
+  }, [qty]);
 
   return (
     <div className="flex gap-4">
@@ -35,13 +59,23 @@ export const CartItem = (props) => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon">
+          <Button
+            disabled={qty === 1}
+            variant="ghost"
+            size="icon"
+            onClick={() => setQty(qty - 1)}
+          >
             <IoIosRemove className="w-4 h-4" />
           </Button>
 
-          <p className="text-lg font-bold">{quantity}</p>
+          <p className="text-lg font-bold">{qty}</p>
 
-          <Button variant="ghost" size="icon">
+          <Button
+            disabled={qty >= stock}
+            variant="ghost"
+            size="icon"
+            onClick={() => setQty(qty + 1)}
+          >
             <IoIosAdd className="w-4 h-4" />
           </Button>
         </div>

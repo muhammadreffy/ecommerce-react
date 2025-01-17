@@ -120,25 +120,31 @@
       "id": "3784",
       "userId": "756c",
       "productId": "5",
-      "quantity": 3
+      "quantity": 12
     },
     {
       "id": "f9e9",
       "userId": "756c",
       "productId": "4860",
-      "quantity": 12
+      "quantity": 20
     },
     {
       "id": "dfe3",
       "userId": "756c",
       "productId": "4",
-      "quantity": 2
+      "quantity": 6
     },
     {
       "id": "9876",
       "userId": "756c",
       "productId": "1",
       "quantity": 2
+    },
+    {
+      "id": "9a20",
+      "userId": "756c",
+      "productId": "13",
+      "quantity": 3
     }
   ]
 }
