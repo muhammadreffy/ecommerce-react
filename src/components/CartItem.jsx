@@ -1,9 +1,9 @@
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { Button } from "./ui/button";
-import { IoCheckmark, IoTrash } from "react-icons/io5";
+import { IoCheckmark, IoClose, IoTrash } from "react-icons/io5";
 
 export const CartItem = (props) => {
-  const { name, price, imageUrl } = props;
+  const { name, price, imageUrl, stock, quantity } = props;
   return (
     <div className="flex gap-4">
       <div className="w-full overflow-hidden rounded-md aspect-square max-w-52">
@@ -21,7 +21,7 @@ export const CartItem = (props) => {
             <IoIosRemove className="w-4 h-4" />
           </Button>
 
-          <p className="text-lg font-bold">1</p>
+          <p className="text-lg font-bold">{quantity}</p>
 
           <Button variant="ghost" size="icon">
             <IoIosAdd className="w-4 h-4" />
@@ -30,8 +30,17 @@ export const CartItem = (props) => {
 
         <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">
-            <IoCheckmark className="w-6 h-6 text-green-500" />
-            <span className="text-muted-foreground">Available</span>
+            {stock < quantity ? (
+              <>
+                <IoClose className="w-6 h-6 text-red-600" />
+                <span className="text-muted-foreground">Not Available</span>
+              </>
+            ) : (
+              <>
+                <IoCheckmark className="w-6 h-6 text-green-500" />
+                <span className="text-muted-foreground">Available</span>
+              </>
+            )}
           </div>
 
           <Button variant="ghost">

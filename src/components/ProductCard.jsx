@@ -2,13 +2,33 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { axiosInstance } from "@/lib/axios";
 
 export const ProductCard = (props) => {
   const { id, imageUrl, name, price, stock } = props;
 
   const userSelector = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const getCart = async () => {
+    try {
+      const cartResponse = await axiosInstance.get("/carts", {
+        params: {
+          userId: userSelector.id,
+          _embed: "product",
+        },
+      });
+
+      dispatch({
+        type: "CART_GET",
+        payload: cartResponse.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const addToCart = async () => {
     if (!userSelector.id) return alert("please login");
@@ -20,8 +40,6 @@ export const ProductCard = (props) => {
           _embed: "product",
         },
       });
-
-      console.log(cartResponse);
 
       const existingProduct = cartResponse.data.find((cart) => {
         return cart.productId === id;
@@ -47,7 +65,9 @@ export const ProductCard = (props) => {
         });
       }
 
-      alert("Added to cart");
+      alert("Added item to cart");
+
+      getCart();
     } catch (error) {
       console.error(error);
     }

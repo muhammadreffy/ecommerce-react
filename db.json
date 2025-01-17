@@ -5,7 +5,7 @@
       "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/3/5/3a8003ae-4e9a-465e-aec6-d9487cffb056.jpg",
       "name": "The Psychology of Money",
       "price": 50000,
-      "stock": 3
+      "stock": 10
     },
     {
       "id": "2",
@@ -117,16 +117,10 @@
   ],
   "carts": [
     {
-      "id": "c6e7",
+      "id": "7bb2",
       "userId": "756c",
       "productId": "1",
       "quantity": 2
-    },
-    {
-      "id": "01a8",
-      "userId": "756c",
-      "productId": "4",
-      "quantity": 1
     }
   ]
 }
