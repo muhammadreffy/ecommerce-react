@@ -19,6 +19,8 @@ const CartPage = () => {
               {cartSelector.items.length ? (
                 cartSelector.items.map((cartItem) => (
                   <CartItem
+                    key={cartItem.id}
+                    id={cartItem.id}
                     name={cartItem.product.name}
                     price={cartItem.product.price}
                     imageUrl={cartItem.product.imageUrl}

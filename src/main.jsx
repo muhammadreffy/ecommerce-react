@@ -4,10 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { legacy_createStore } from "redux";
-import { reducers } from "./store/reducers.js";
-
-const globalStore = legacy_createStore(reducers);
+import { globalStore } from "./store/reducers.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={globalStore}>

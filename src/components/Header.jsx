@@ -12,8 +12,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { axiosInstance } from "@/lib/axios";
 import { useEffect } from "react";
+import { getCart } from "@/services/cartService";
 
 export const Header = () => {
   const userSelector = useSelector((state) => state.user);
@@ -29,26 +29,8 @@ export const Header = () => {
     });
   };
 
-  const getCart = async () => {
-    try {
-      const cartResponse = await axiosInstance.get("/carts", {
-        params: {
-          userId: userSelector.id,
-          _embed: "product",
-        },
-      });
-
-      dispatch({
-        type: "CART_GET",
-        payload: cartResponse.data,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getCart();
+    getCart(userSelector.id);
   }, []);
 
   return (

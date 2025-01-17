@@ -1,9 +1,27 @@
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { Button } from "./ui/button";
 import { IoCheckmark, IoClose, IoTrash } from "react-icons/io5";
+import { axiosInstance } from "@/lib/axios";
+import { useSelector } from "react-redux";
+import { getCart } from "@/services/cartService";
 
 export const CartItem = (props) => {
-  const { name, price, imageUrl, stock, quantity } = props;
+  const { id, name, price, imageUrl, stock, quantity } = props;
+
+  const userSelector = useSelector((state) => state.user);
+
+  const removeCartItem = async () => {
+    try {
+      await axiosInstance.delete(`/carts/${id}`);
+
+      alert("Successfully remove cart item");
+
+      getCart(userSelector.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex gap-4">
       <div className="w-full overflow-hidden rounded-md aspect-square max-w-52">
@@ -43,7 +61,7 @@ export const CartItem = (props) => {
             )}
           </div>
 
-          <Button variant="ghost">
+          <Button variant="ghost" onClick={removeCartItem}>
             <IoTrash className="w-6 h-6 text-destructive" />
             <span className="text-destructive">Remove Item</span>
           </Button>
