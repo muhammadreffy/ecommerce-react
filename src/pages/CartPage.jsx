@@ -10,10 +10,12 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { axiosInstance } from "@/lib/axios";
+import { getCart } from "@/services/cartService";
 import { useSelector } from "react-redux";
 
 const CartPage = () => {
   const cartSelector = useSelector((state) => state.cart);
+  const userSelector = useSelector((state) => state.user);
 
   const subtotal = cartSelector.items.reduce((prevValue, currValue) => {
     return prevValue + currValue.quantity * currValue.product.price;
@@ -22,6 +24,40 @@ const CartPage = () => {
   const taxes = subtotal * 0.11;
 
   const total = subtotal + taxes;
+
+  const handleChekout = async () => {
+    for (let i = 0; i < cartSelector.items.length; i++) {
+      const currentCartItem = cartSelector.items[i];
+
+      console.log(currentCartItem);
+
+      if (currentCartItem.quantity > currentCartItem.product.stock) {
+        alert("One of your items is unavailable, please remove it.");
+      }
+    }
+
+    await axiosInstance.post("/transactions", {
+      userId: userSelector.id,
+      tax: taxes,
+      totalPrice: total,
+      items: cartSelector.items,
+      dateTime: new Date().toLocaleString(),
+    });
+
+    cartSelector.items.forEach(async (cartItem) => {
+      await axiosInstance.patch(`/products/${cartItem.productId}`, {
+        stock: cartItem.product.stock - cartItem.quantity,
+      });
+    });
+
+    cartSelector.items.forEach(async (cartItem) => {
+      await axiosInstance.delete(`/carts/${cartItem.id}`);
+    });
+
+    alert("Checkout Successfully");
+
+    getCart(userSelector.id);
+  };
 
   return (
     <AuthPage>
@@ -86,7 +122,9 @@ const CartPage = () => {
                   </strong>
                 </div>
 
-                <Button className="w-full">Checkout</Button>
+                <Button className="w-full" onClick={handleChekout}>
+                  Checkout
+                </Button>
               </CardFooter>
             </Card>
           </div>

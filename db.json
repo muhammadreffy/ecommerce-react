@@ -5,14 +5,14 @@
       "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/3/5/3a8003ae-4e9a-465e-aec6-d9487cffb056.jpg",
       "name": "The Psychology of Money",
       "price": 50000,
-      "stock": 10
+      "stock": 5
     },
     {
       "id": "2",
       "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/8/16/791092f0-ad7e-4415-a378-383f487df944.png",
       "name": "The Psychology of Emotion",
       "price": 76000,
-      "stock": 12
+      "stock": 6
     },
     {
       "id": "4",
@@ -115,19 +115,42 @@
       "role": "admin"
     }
   ],
-  "carts": [
+  "carts": [],
+  "transactions": [
     {
-      "id": "4ce4",
+      "id": "aabf",
       "userId": "756c",
-      "productId": "1",
-      "quantity": 5
-    },
-    {
-      "id": "be1b",
-      "userId": "756c",
-      "productId": "2",
-      "quantity": 3
+      "tax": 44220,
+      "totalPrice": 446220,
+      "items": [
+        {
+          "id": "4ce4",
+          "userId": "756c",
+          "productId": "1",
+          "quantity": 5,
+          "product": {
+            "id": "1",
+            "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/3/5/3a8003ae-4e9a-465e-aec6-d9487cffb056.jpg",
+            "name": "The Psychology of Money",
+            "price": 50000,
+            "stock": 10
+          }
+        },
+        {
+          "id": "9c44",
+          "userId": "756c",
+          "productId": "2",
+          "quantity": 2,
+          "product": {
+            "id": "2",
+            "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/8/16/791092f0-ad7e-4415-a378-383f487df944.png",
+            "name": "The Psychology of Emotion",
+            "price": 76000,
+            "stock": 8
+          }
+        }
+      ],
+      "dateTime": "1/20/2025, 10:31:48 AM"
     }
-  ],
-  "transactions": []
+  ]
 }
