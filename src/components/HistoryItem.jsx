@@ -6,6 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 export const HistoryItem = (props) => {
   return (
@@ -32,6 +34,10 @@ export const HistoryItem = (props) => {
           <span className="text-2xl font-bold">
             Rp{props.totalPrice.toLocaleString("id-ID")}
           </span>
+
+          <Link to={`/detail/history/${props.id}`}>
+            <Button variant="link">View Details</Button>
+          </Link>
         </div>
       </div>
 
