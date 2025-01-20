@@ -30,10 +30,10 @@ const HistoryPage = () => {
     <AuthPage>
       <main className="max-w-screen-lg min-h-screen px-4 mx-auto mt-24">
         <h1 className="text-3xl font-bold">My Orders</h1>
-        <div className="flex flex-col mt-8 gap-y-24">
+        <div className="flex flex-col mt-8 gap-y-5">
           {transactions.map((transaction) => (
             <HistoryItem key={transaction.id} {...transaction} />
-          ))}
+          )) || <p>You've never ordered</p>}
         </div>
       </main>
     </AuthPage>

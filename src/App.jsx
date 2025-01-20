@@ -47,7 +47,7 @@ function App() {
 
         <Route path="/products/:productId" Component={ProductDetailPage} />
 
-        <Route path="/history-page" Component={HistoryPage} />
+        <Route path="/order-histories" Component={HistoryPage} />
 
         <Route path="/admin">
           <Route path="products" Component={ProductManagementPage} />
