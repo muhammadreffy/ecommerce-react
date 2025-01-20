@@ -12,7 +12,7 @@
       "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/8/16/791092f0-ad7e-4415-a378-383f487df944.png",
       "name": "The Psychology of Emotion",
       "price": 76000,
-      "stock": 0
+      "stock": 12
     },
     {
       "id": "4",
@@ -117,34 +117,17 @@
   ],
   "carts": [
     {
-      "id": "3784",
-      "userId": "756c",
-      "productId": "5",
-      "quantity": 12
-    },
-    {
-      "id": "f9e9",
-      "userId": "756c",
-      "productId": "4860",
-      "quantity": 20
-    },
-    {
-      "id": "dfe3",
-      "userId": "756c",
-      "productId": "4",
-      "quantity": 6
-    },
-    {
-      "id": "9876",
+      "id": "4ce4",
       "userId": "756c",
       "productId": "1",
-      "quantity": 2
+      "quantity": 5
     },
     {
-      "id": "9a20",
+      "id": "be1b",
       "userId": "756c",
-      "productId": "13",
+      "productId": "2",
       "quantity": 3
     }
-  ]
+  ],
+  "transactions": []
 }

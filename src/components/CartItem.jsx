@@ -16,7 +16,7 @@ export const CartItem = (props) => {
 
   const debounceUpdateCart = useDebouncedCallback(() => {
     updateCartQuantity();
-  }, 2000);
+  }, 1000);
 
   const removeCartItem = async () => {
     try {
