@@ -12,7 +12,7 @@ import { Button } from "./ui/button";
 export const HistoryItem = (props) => {
   return (
     <div className="border rounded-md">
-      <div className="flex items-center p-4 justify-between bg-slate-100">
+      <div className="flex items-center justify-between p-4 bg-slate-100">
         <div className="flex flex-col justify-center">
           <span className="text-sm text-muted-foreground">
             {new Date(props.dateTime).toLocaleString("id-ID", {
@@ -47,7 +47,6 @@ export const HistoryItem = (props) => {
             <TableHead colSpan={2}>Product Name</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Quantity</TableHead>
-            <TableHead>Tax</TableHead>
             <TableHead>Total Price</TableHead>
           </TableRow>
         </TableHeader>
@@ -72,7 +71,6 @@ export const HistoryItem = (props) => {
                 Rp{item.product.price.toLocaleString("id-ID")}
               </TableCell>
               <TableCell>{item.quantity}</TableCell>
-              <TableCell>Rp{props.tax.toLocaleString("id-ID")}</TableCell>
               <TableCell>
                 Rp{props.totalPrice.toLocaleString("id-ID")}
               </TableCell>

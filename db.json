@@ -33,21 +33,21 @@
       "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/8/28/3d514ad7-7f55-493d-b491-b752065ee2d0.png",
       "name": "Samsung Galaxy Note 10 Plus 12GB/256GB ex Resmi Indo - Standard, No Box",
       "price": 4350000,
-      "stock": 10
+      "stock": 7
     },
     {
       "id": "8",
       "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/8/21/e03b63db-7e63-4e92-bce5-7d50ea9e0589.png",
       "name": "Samsung Galaxy A34 8GB/256GB ex Resmi Indo - Ekonomis, No Box",
       "price": 2500000,
-      "stock": 10
+      "stock": 7
     },
     {
       "id": "9",
       "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/9/27/283a01ca-9b4f-4aa1-94de-12c664f59fc3.png",
       "name": "EA SPORT FC 25 XBOX ONE SERIES S/X - Double log",
       "price": 169000,
-      "stock": 96
+      "stock": 93
     },
     {
       "id": "10",
@@ -160,6 +160,63 @@
         }
       ],
       "dateTime": "1/20/2025, 2:32:04 PM"
+    },
+    {
+      "id": "d6fe",
+      "userId": "756c",
+      "tax": 55770,
+      "totalPrice": 562770,
+      "items": [
+        {
+          "id": "8997",
+          "userId": "756c",
+          "productId": "9",
+          "quantity": 3,
+          "product": {
+            "id": "9",
+            "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/9/27/283a01ca-9b4f-4aa1-94de-12c664f59fc3.png",
+            "name": "EA SPORT FC 25 XBOX ONE SERIES S/X - Double log",
+            "price": 169000,
+            "stock": 96
+          }
+        }
+      ],
+      "dateTime": "1/21/2025, 10:29:17 AM"
+    },
+    {
+      "id": "0c05",
+      "userId": "756c",
+      "tax": 2260500,
+      "totalPrice": 22810500,
+      "items": [
+        {
+          "id": "3d83",
+          "userId": "756c",
+          "productId": "7",
+          "quantity": 3,
+          "product": {
+            "id": "7",
+            "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/8/28/3d514ad7-7f55-493d-b491-b752065ee2d0.png",
+            "name": "Samsung Galaxy Note 10 Plus 12GB/256GB ex Resmi Indo - Standard, No Box",
+            "price": 4350000,
+            "stock": 10
+          }
+        },
+        {
+          "id": "2e31",
+          "userId": "756c",
+          "productId": "8",
+          "quantity": 3,
+          "product": {
+            "id": "8",
+            "imageUrl": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/8/21/e03b63db-7e63-4e92-bce5-7d50ea9e0589.png",
+            "name": "Samsung Galaxy A34 8GB/256GB ex Resmi Indo - Ekonomis, No Box",
+            "price": 2500000,
+            "stock": 10
+          }
+        }
+      ],
+      "dateTime": "1/21/2025, 10:30:27 AM"
     }
   ]
 }
